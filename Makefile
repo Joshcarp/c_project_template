@@ -1,4 +1,4 @@
-all: build-tests build-main test
+all: setup build-tests build-main test
 
 .PHONY: build-main
 
@@ -22,13 +22,16 @@ MAINTARGETS = $(filter-out %_test.c, $(wildcard $(MAIN_DIR)/*/*.c))
 
 UNITYFILES = $(wildcard vendor/unity/*.c)
 
+setup:
+	mkdir -p bin
+
 ## build-tests: Builds the test binaries
 build-tests: $(SRCS) $(UNITYFILES) $(TESTS)
-	$(foreach file, $(TESTTARGETS), $(shell gcc -g -Wall $(file) $(UNITYFILES) $(SRCS)  -o bin$(patsubst %.c,/%.o,$(notdir  $(file)))))
+	$(foreach file, $(TESTTARGETS), $(shell gcc -std=c99 -g -Wall $(file) $(UNITYFILES) $(SRCS)  -o bin$(patsubst %.c,/%.o,$(notdir  $(file)))))
 
 ## build-main:  Builds the main programs in cmd/
 build-main: $(SRCS) $(MAINTARGETS)
-	$(foreach file, $(MAINTARGETS), $(shell gcc -g -Wall $(file) $(SRCS)  -o bin$(patsubst %.c,/%.o,$(notdir  $(file)))))
+	$(foreach file, $(MAINTARGETS), $(shell gcc -std=c99 -g -Wall $(file) $(SRCS)  -o bin$(patsubst %.c,/%.o,$(notdir  $(file)))))
 
 ## clean:       Removes all files in bin/
 clean:
@@ -45,3 +48,8 @@ valgrind:
 ## help:        Show this help.
 help:
 	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
+
+docker:
+	docker build -t joshcarp/alpine-smarter:1.0 .
+	docker run --rm -ti joshcarp/alpine-smarter:1.0
+	docker rm joshcarp/alpine-smarter:1.0
