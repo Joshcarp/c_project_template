@@ -10,10 +10,10 @@
             "type": "cppdbg",
             "request": "launch",
             // "program": "${workspaceRoot}/bin/data_test",
-            "program": "${workspaceRoot}/bin/./dict1_main",
+            "program": "${workspaceRoot}/bin/./example1.o",
             "args": ["src/testFiles/data.csv", "src/testFiles/output2.txt",  "<", "src/testFiles/keys"],
             "cwd": "${workspaceFolder}",
-            "MIMode": "gdb",
+            "MIMode": "lldb",
             // "externalConsole": true,
         
         
