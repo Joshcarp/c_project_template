@@ -9,5 +9,5 @@ as well as code for the randomising input*/
 #include <assert.h>
 
 int boo(){
-  return 700;
+  return 69;
 }
