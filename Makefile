@@ -53,3 +53,15 @@ docker:
 	docker build -t joshcarp/alpine-smarter:1.0 .
 	docker run --rm -ti joshcarp/alpine-smarter:1.0
 	docker rm joshcarp/alpine-smarter:1.0
+
+PROJECTNAME=c_project_template
+PRIVATEKEY=path/to/privatekey
+SERVER=serveraddr
+uni: 
+	# scp -i $(PRIVATEKEY) -r ../webscraper $(SERVER):~/webscraper
+	scp -i $(PRIVATEKEY) -r crawler $(SERVER):~/crawler
+	ssh -i $(PRIVATEKEY) $(SERVER)
+copy:
+	# scp -i $(PRIVATEKEY) -r  $(SERVER):~/web3.comp30023 .
+	scp -i $(PRIVATEKEY) -r  $(SERVER):~/error.txt .
+	# scp username@remote:/file/to/send /where/to/put
